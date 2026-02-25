@@ -27,8 +27,29 @@ An AI-powered skincare mobile application that provides personalized skin analys
    npm run android
    ```
 
-## Technologies Used
+## Deployment
 
-- React Native
-- TypeScript
-- React Navigation
+### iOS
+```bash
+cd ios
+fastlane beta  # Deploy to TestFlight
+fastlane release  # Deploy to App Store
+```
+
+### Android
+```bash
+cd android
+fastlane beta  # Deploy to Google Play Beta
+fastlane release  # Deploy to Google Play Production
+```
+
+## Testing
+
+Run tests:
+```bash
+npm test
+```
+
+## API Documentation
+
+When the backend is running, visit `http://localhost:3000/api-docs` for API documentation.

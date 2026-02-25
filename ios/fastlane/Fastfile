@@ -1,0 +1,39 @@
+# fastlane/Fastfile
+default_platform(:ios)
+
+platform :ios do
+  desc "Build and deploy to TestFlight"
+  lane :beta do
+    # Increment build number
+    increment_build_number
+
+    # Build the app
+    build_app(
+      scheme: "Skin",
+      export_method: "app-store",
+      export_options: {
+        provisioningProfiles: {
+          "com.skin.app" => "Skin App Store"
+        }
+      }
+    )
+
+    # Upload to TestFlight
+    upload_to_testflight
+  end
+
+  desc "Build and deploy to App Store"
+  lane :release do
+    # Increment version number
+    increment_version_number
+
+    # Build the app
+    build_app(
+      scheme: "Skin",
+      export_method: "app-store"
+    )
+
+    # Upload to App Store
+    upload_to_app_store
+  end
+end

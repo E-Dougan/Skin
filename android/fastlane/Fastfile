@@ -1,0 +1,40 @@
+# fastlane/Fastfile
+default_platform(:android)
+
+platform :android do
+  desc "Build and deploy to Google Play Beta"
+  lane :beta do
+    # Increment version code
+    increment_version_code
+
+    # Build the APK/AAB
+    gradle(
+      task: "bundle",
+      build_type: "Release"
+    )
+
+    # Upload to Google Play
+    upload_to_play_store(
+      track: "beta",
+      aab: "../build/app/outputs/bundle/release/app-release.aab"
+    )
+  end
+
+  desc "Build and deploy to Google Play Production"
+  lane :release do
+    # Increment version code
+    increment_version_code
+
+    # Build the APK/AAB
+    gradle(
+      task: "bundle",
+      build_type: "Release"
+    )
+
+    # Upload to Google Play
+    upload_to_play_store(
+      track: "production",
+      aab: "../build/app/outputs/bundle/release/app-release.aab"
+    )
+  end
+end

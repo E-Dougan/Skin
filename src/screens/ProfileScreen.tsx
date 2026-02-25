@@ -1,13 +1,43 @@
-import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {View, Text, StyleSheet, TouchableOpacity, Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../navigation/MainNavigator';
+import { usersAPI, User } from '../services/api';
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Profile'>;
 
 const ProfileScreen: React.FC = () => {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadProfile();
+  }, []);
+
+  const loadProfile = async () => {
+    try {
+      const response = await usersAPI.getProfile();
+      setUser(response.data.user);
+    } catch (error: any) {
+      Alert.alert('Error', 'Failed to load profile');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleEditProfile = () => {
+    Alert.alert('Edit Profile', 'Profile editing feature coming soon!');
+  };
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>Loading profile...</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -17,17 +47,22 @@ const ProfileScreen: React.FC = () => {
       </Text>
 
       <View style={styles.profileInfo}>
+        <Text style={styles.label}>Email:</Text>
+        <Text style={styles.value}>{user?.email || 'Not set'}</Text>
+
+        <Text style={styles.label}>Name:</Text>
+        <Text style={styles.value}>{user?.name || 'Not set'}</Text>
+
         <Text style={styles.label}>Skin Type:</Text>
-        <Text style={styles.value}>Not set</Text>
+        <Text style={styles.value}>{user?.skin_type || 'Not set'}</Text>
 
-        <Text style={styles.label}>Concerns:</Text>
-        <Text style={styles.value}>Not set</Text>
-
-        <Text style={styles.label}>Allergies:</Text>
-        <Text style={styles.value}>None</Text>
+        <Text style={styles.label}>Member Since:</Text>
+        <Text style={styles.value}>
+          {user ? new Date().toLocaleDateString() : 'Not available'}
+        </Text>
       </View>
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={handleEditProfile}>
         <Text style={styles.buttonText}>Edit Profile</Text>
       </TouchableOpacity>
 

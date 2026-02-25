@@ -4,6 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../navigation/MainNavigator';
 import { authAPI } from '../services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
 
@@ -25,11 +26,14 @@ const LoginScreen: React.FC = () => {
     try {
       if (isLogin) {
         const response = await authAPI.login(email, password);
-        // In a real app, store token in secure storage
+        // Store token securely
+        await AsyncStorage.setItem('authToken', response.data.token);
         Alert.alert('Success', 'Logged in successfully!');
         navigation.goBack();
       } else {
         const response = await authAPI.register(email, password, name);
+        // Store token securely
+        await AsyncStorage.setItem('authToken', response.data.token);
         Alert.alert('Success', 'Account created successfully!');
         setIsLogin(true);
       }

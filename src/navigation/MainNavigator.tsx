@@ -1,0 +1,23 @@
+import React from 'react';
+import {createStackNavigator} from '@react-navigation/stack';
+import HomeScreen from '../screens/HomeScreen';
+import AnalysisScreen from '../screens/AnalysisScreen';
+import ProductsScreen from '../screens/ProductsScreen';
+import RoutineScreen from '../screens/RoutineScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+
+const Stack = createStackNavigator();
+
+const MainNavigator: React.FC = () => {
+  return (
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Analysis" component={AnalysisScreen} />
+      <Stack.Screen name="Products" component={ProductsScreen} />
+      <Stack.Screen name="Routine" component={RoutineScreen} />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
+    </Stack.Navigator>
+  );
+};
+
+export default MainNavigator;

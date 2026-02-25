@@ -52,7 +52,9 @@ export const initializeDatabase = async () => {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         user_id INTEGER NOT NULL,
         image_path TEXT,
-        results TEXT, -- JSON
+        skin_type TEXT,
+        concerns TEXT, -- JSON array
+        recommendations TEXT, -- JSON array
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users (id)
       )

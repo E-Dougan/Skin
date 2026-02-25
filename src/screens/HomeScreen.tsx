@@ -29,7 +29,8 @@ const HomeScreen: React.FC = () => {
   };
 
   const handleLogout = async () => {
-    // In a real app, clear token from storage
+    // Clear token from storage
+    await AsyncStorage.removeItem('authToken');
     setUser(null);
     Alert.alert('Logged out', 'You have been logged out successfully');
   };

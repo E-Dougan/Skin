@@ -1,5 +1,6 @@
 import sqlite3 from 'sqlite3';
 import { promisify } from 'util';
+import { seedDatabase } from './seed';
 
 const dbPath = process.env.DATABASE_PATH || './database.db';
 
@@ -88,6 +89,8 @@ export const initializeDatabase = async () => {
     `);
 
     console.log('Database initialized successfully.');
+    // Seed with sample data
+    await seedDatabase();
   } catch (error) {
     console.error('Error initializing database:', error);
     throw error;

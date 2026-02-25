@@ -1,9 +1,13 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../navigation/MainNavigator';
+
+type RoutineScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Routine'>;
 
 const RoutineScreen: React.FC = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<RoutineScreenNavigationProp>();
 
   const routineSteps = [
     {id: '1', step: 'Cleanse', time: 'Morning & Evening', description: 'Remove dirt and impurities'},

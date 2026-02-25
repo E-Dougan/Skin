@@ -6,7 +6,15 @@ import ProductsScreen from '../screens/ProductsScreen';
 import RoutineScreen from '../screens/RoutineScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 
-const Stack = createStackNavigator();
+export type RootStackParamList = {
+  Home: undefined;
+  Analysis: undefined;
+  Products: undefined;
+  Routine: undefined;
+  Profile: undefined;
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 const MainNavigator: React.FC = () => {
   return (

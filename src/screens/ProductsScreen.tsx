@@ -1,9 +1,13 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../navigation/MainNavigator';
+
+type ProductsScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Products'>;
 
 const ProductsScreen: React.FC = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<ProductsScreenNavigationProp>();
 
   const products = [
     {id: '1', name: 'Gentle Cleanser', type: 'Cleanser'},

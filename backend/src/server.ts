@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import dotenv from 'dotenv';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import { initializeDatabase } from './config/database';
+import { initializeDatabase } from './config/database-postgres';
 import routes from './routes';
 
 dotenv.config();

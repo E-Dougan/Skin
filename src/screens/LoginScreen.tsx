@@ -5,7 +5,24 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../navigation/MainNavigator';
 import { authAPI } from '../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { appleAuth } from '@react-native-apple-authentication';
 
+const handleAppleSignIn = async () => {
+  const response = await appleAuth.performRequest({
+    requestedOperation: appleAuth.Operation.LOGIN,
+  });
+  
+  const result = await authAPI.appleLogin(response.identityToken);
+  await AsyncStorage.setItem('authToken', result.data.token);
+};
+const handleGoogleSignIn = async () => {
+  const response = await GoogleSignin.signIn();
+  const { idToken } = response;
+  
+  const result = await authAPI.googleLogin(idToken);
+  await AsyncStorage.setItem('authToken', result.data.token);
+};
 type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
 
 const LoginScreen: React.FC = () => {

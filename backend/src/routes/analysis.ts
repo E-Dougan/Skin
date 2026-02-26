@@ -2,7 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import { dbRun, dbAll } from '../config/database';
 import { authenticateToken } from '../middleware/auth';
-import { AIService } from '../services/aiService';
+import { AIServiceReal } from '../services/aiServiceReal';
 
 const router = express.Router();
 const upload = multer({ dest: 'uploads/' });
@@ -15,7 +15,7 @@ router.post('/analyze', authenticateToken, upload.single('image'), async (req, r
     }
 
     // Use AI service for analysis
-    const analysisResult = await AIService.analyzeSkin(req.file.path);
+   const analysisResult = await AIServiceReal.analyzeSkinFromImage(req.file.path );
 
     // Save analysis to database
     const result = await dbRun(

@@ -26,10 +26,6 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
-      - name: Install Android SDK Components
-        run: |
-          echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install "platforms;android-33" "build-tools;33.0.0"
-
       - name: Build Android Release
         working-directory: android
         run: |

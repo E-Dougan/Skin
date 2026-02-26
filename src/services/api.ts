@@ -98,5 +98,8 @@ export const routinesAPI = {
     api.put(`/routines/${id}/progress`, { completed_steps: completedSteps }),
   delete: (id: number) => api.delete(`/routines/${id}`),
 };
-
+export const checkoutAPI = {
+  createSession: (productId: number, quantity: number) =>
+    api.post('/products/checkout', { productId, quantity }),
+};
 export default api;
